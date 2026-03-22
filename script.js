@@ -13,7 +13,6 @@ const navbar      = document.getElementById('navbar');
 const html        = document.documentElement;
  
 /* ─── THEME TOGGLE ──────────────────────────────────── */
-// Read saved theme on load
 const savedTheme = localStorage.getItem('pk-theme') || 'light';
 html.setAttribute('data-theme', savedTheme);
  
@@ -42,28 +41,28 @@ function openNav() {
 }
  
 hamburger.addEventListener('click', () => {
-  const isOpen = hamburger.classList.contains('open');
-  isOpen ? closeNav() : openNav();
+  hamburger.classList.contains('open') ? closeNav() : openNav();
 });
  
 navOverlay.addEventListener('click', closeNav);
- 
-// Close nav when a link is clicked
+
+// Close on nav link click
 navLinks.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', closeNav);
 });
+
+// Close on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeNav();
+});
  
 /* ─── SCROLL: NAVBAR SHADOW + ACTIVE LINK ───────────── */
-const sections   = document.querySelectorAll('main, [id]');
 const allNavLinks = document.querySelectorAll('.nav-link');
  
 function updateActiveLink() {
   const scrollY = window.scrollY;
- 
-  // Navbar scroll shadow
   navbar.classList.toggle('scrolled', scrollY > 10);
  
-  // Active section detection
   const sectionMap = [
     { id: 'home',  href: '#home'  },
     { id: 'about', href: '#about' },
@@ -73,20 +72,16 @@ function updateActiveLink() {
   let current = 'home';
   sectionMap.forEach(({ id }) => {
     const el = document.getElementById(id);
-    if (el) {
-      const top = el.getBoundingClientRect().top;
-      if (top <= 80) current = id;
-    }
+    if (el && el.getBoundingClientRect().top <= 80) current = id;
   });
  
   allNavLinks.forEach(link => {
-    const href = link.getAttribute('href');
-    link.classList.toggle('active', href === `#${current}`);
+    link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
   });
 }
  
 window.addEventListener('scroll', updateActiveLink, { passive: true });
-updateActiveLink(); // run on load
+updateActiveLink();
  
 /* ─── SCROLL REVEAL (AOS-like) ──────────────────────── */
 const aosEls = document.querySelectorAll('[data-aos]');
@@ -95,7 +90,6 @@ const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Stagger children if container
         entry.target.classList.add('aos-in');
         observer.unobserve(entry.target);
       }
@@ -109,8 +103,7 @@ aosEls.forEach((el, i) => {
   observer.observe(el);
 });
  
-/* ─── SKILL HOVER TOOLTIP ───────────────────────────── */
-// Optional: add a subtle ripple on skill icon click
+/* ─── SKILL HOVER RIPPLE ────────────────────────────── */
 document.querySelectorAll('.skill-item').forEach(item => {
   item.addEventListener('click', () => {
     item.style.transform = 'scale(0.95)';
@@ -137,13 +130,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 console.log('%c👋 Hi there! I\'m Priyesh Kumar.', 'font-size:16px;font-weight:bold;color:#2d6a4f;');
 console.log('%cCheck out my portfolio & feel free to connect!', 'font-size:13px;color:#6b6962;');
  
-/* ─── Profile Pic Chnages ────────────────────────────── */
-  const images = document.querySelectorAll(".profile-img-slider img");
-  let index = 0;
+/* ─── PROFILE PIC SLIDER ────────────────────────────── */
+const images = document.querySelectorAll('.profile-img-slider img');
+let index = 0;
 
-  setInterval(() => {
-    images[index].classList.remove("active");
-    index = (index + 1) % images.length;
-    images[index].classList.add("active");
-  }, 3000); // change every 3 seconds
- 
+setInterval(() => {
+  images[index].classList.remove('active');
+  index = (index + 1) % images.length;
+  images[index].classList.add('active');
+}, 3000);
