@@ -292,14 +292,13 @@ h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; line-height: 1.2; }
   box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 .social-icon:last-child {
-  animation: bgColorShift 5s ease-in-out infinite;
+  animation: bgColorShift 0.7s ease-in-out infinite;
   color: rgb(255, 255, 255);
 }
 @keyframes bgColorShift {
-  0%   { background: #000000; }
-  25%  { background: #f20606; }
-  75%  { background: #0894f2; }
-  100% { background: #000000; }
+  0%   { background: #fff315; }
+  50%  { background: #ff1414; }
+  100% { background: #2815fe; }
 }
 .globe-anim { animation: rotateGlobe 6s linear infinite; }
 @keyframes rotateGlobe {
