@@ -18,8 +18,8 @@
   --accent-muted: #e8f4ea;
   --call-color: #0077b6;
   --call-bg: #e0f2fe;
-  --wa-color: #25d366;
-  --wa-bg: #dcfce7;
+  --wa-color: #2576d3;
+  --wa-bg: #dceafc;
   --mail-color: #7c3aed;
   --mail-bg: #ede9fe;
   --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
@@ -47,8 +47,8 @@
   --accent-muted: #1a3028;
   --call-color: #38bdf8;
   --call-bg: #0c2a3a;
-  --wa-color: #4ade80;
-  --wa-bg: #0d2b18;
+  --wa-color: #4aa3de;
+  --wa-bg: #0d1e2b;
   --mail-color: #a78bfa;
   --mail-bg: #1e1338;
   --shadow-sm: 0 1px 3px rgba(0,0,0,.3);
@@ -270,8 +270,8 @@ h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; line-height: 1.2; }
 .btn:hover { transform: translateY(-2px); }
 .btn-call { background: var(--call-bg); color: var(--call-color); }
 .btn-call:hover { box-shadow: 0 4px 12px color-mix(in srgb, var(--call-color) 25%, transparent); }
-.btn-whatsapp { background: var(--wa-bg); color: var(--wa-color); flex: 0; width: 42px; min-width: 42px; padding: 9px; }
-.btn-whatsapp:hover { box-shadow: 0 4px 12px color-mix(in srgb, var(--wa-color) 25%, transparent); }
+.btn-linkedin { background: var(--wa-bg); color: var(--wa-color); flex: 0; width: 42px; min-width: 42px; padding: 9px; }
+.btn-linkedin:hover { box-shadow: 0 4px 12px color-mix(in srgb, var(--wa-color) 25%, transparent); }
 .btn-email { background: var(--mail-bg); color: var(--mail-color); }
 .btn-email:hover { box-shadow: 0 4px 12px color-mix(in srgb, var(--mail-color) 25%, transparent); }
 
