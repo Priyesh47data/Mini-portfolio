@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Bi Learning Journey</title>
+    <style>
+        :root {
+            --bg: #000000;
+            --bg-card: #0D1322;
+            --border: #e2e0da;
+            --text-primary: #6c6b6b;
+            --text-secondary: #b52020;
+            --accent: #2d6a4f;
+            --accent-light: #d8f3dc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: Inter, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.8
+        }
+
+        .hero {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--accent), #000000);
+            color: white;
+            text-align: center
+        }
+
+        .hero h1 {
+            font-size: 3rem
+        }
+
+        .hero p {
+            opacity: .9
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 40px 20px
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: var(--accent)
+        }
+
+        h3 {
+            margin: 20px 0 10px
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--accent-light)
+        }
+
+        pre {
+            background: #111827;
+            color: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            overflow: auto;
+        }
+
+        .accordion-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: .4s;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 6000px;
+        }
+
+        .arrow {
+            transition: .3s
+        }
+
+        .accordion-item.active .arrow {
+            transform: rotate(180deg)
+        }
+
+        .toc a {
+            display: block;
+            color: var(--accent);
+            text-decoration: none;
+            margin: 8px 0
+        }
+
+               /* CTA Button CSS*/
+
+
+        .home-cta {
+            margin: 80px 0 40px;
+            padding: 0 20px;
+        }
+
+        .home-cta-content {
+            max-width: 1100px;
+            margin: auto;
+
+            background: linear-gradient(135deg,
+                    #17305d 0%,
+                    #242a67 50%,
+                    #2f2966 100%);
+
+            border-radius: 28px;
+
+            padding: 50px 40px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, .18);
+        }
+
+        .home-cta-content h2 {
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .home-cta-content p {
+            color: rgba(255, 255, 255, .65);
+            max-width: 700px;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 35px;
+        }
+
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 18px 34px;
+
+            background: linear-gradient(135deg,
+                    #3b82f6,
+                    #8b5cf6);
+
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+
+            border-radius: 999px;
+
+            transition: .35s ease;
+        }
+
+        .home-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, .35);
+        }
+
+        /* Mobile Responsive CTA Button*/
+
+        @media (max-width:768px) {
+
+            .home-cta-content {
+                padding: 35px 25px;
+            }
+
+            .home-cta-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .home-btn {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <section class="hero">
+        <h1>Power Bi Learning Journey</h1>
+        <p> 15 Days Learning Challenge</p>
+    </section>
+
+    <div class="container">
+
+
+
+        <div class="accordion">
+
+            <div class="accordion-item active">
+                <div class="accordion-header">
+                    <span>Day 1 - Inspecting & Summarizing Data</span>
+                    <span class="arrow">▼</span>
+                </div>
+
+                <div class="accordion-content">
+                    <div class="card">
+                        <h2>Coming Soon</h2>
+                        <p>Content for Day 2 will be added later.</p>
+                    </div>
+
+                </div> 
+                  
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Day 2</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="card">
+                        <h2>Coming Soon</h2>
+                        <p>Content for Day 2 will be added later.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Day 3</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="card">
+                        <h2>Coming Soon</h2>
+                        <p>Content for Day 3 will be added later.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Day 4</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="card">
+                        <h2>Coming Soon</h2>
+                        <p>Content for Day 4 will be added later.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Day 5</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="card">
+                        <h2>Coming Soon</h2>
+                        <p>Content for Day 5 will be added later.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Day 6</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="card">
+                        <h2>Coming Soon</h2>
+                        <p>Content for Day 6 will be added later.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Day 7</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="card">
+                        <h2>Coming Soon</h2>
+                        <p>Content for Day 7 will be added later.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Day 8</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="card">
+                        <h2>Coming Soon</h2>
+                        <p>Content for Day 8 will be added later.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Day 9</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="card">
+                        <h2>Coming Soon</h2>
+                        <p>Content for Day 9 will be added later.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Day 10</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="card">
+                        <h2>Coming Soon</h2>
+                        <p>Content for Day 10 will be added later.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Day 11</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="card">
+                        <h2>Coming Soon</h2>
+                        <p>Content for Day 11 will be added later.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Day 12</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="card">
+                        <h2>Coming Soon</h2>
+                        <p>Content for Day 12 will be added later.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Day 13</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="card">
+                        <h2>Coming Soon</h2>
+                        <p>Content for Day 13 will be added later.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Day 14</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="card">
+                        <h2>Coming Soon</h2>
+                        <p>Content for Day 14 will be added later.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Day 15</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="card">
+                        <h2>Coming Soon</h2>
+                        <p>Content for Day 15 will be added later.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- /* CTA Button For Go To Home*/ -->
+        <section class="home-cta">
+            <div class="home-cta-content">
+                <h2>Want to Explore More of My Learning Journey?</h2>
+
+                <p>
+                    Visit my portfolio to explore projects, certifications,
+                    blogs, dashboards, and skills I've developed throughout
+                    my Data Analytics journey.
+                </p>
+
+                <a href="../../" class="home-btn">
+                    ← Back to Home
+                </a>
+            </div>
+        </section>
+
+        <script>
+            const items = document.querySelectorAll('.accordion-item');
+            items.forEach(item => {
+                item.querySelector('.accordion-header').addEventListener('click', () => {
+                    items.forEach(i => { if (i !== item) i.classList.remove('active') });
+                    item.classList.toggle('active');
+                });
+            });
+        </script>
+
+</body>
+
+</html>
