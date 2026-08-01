@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Snowflake Learning Hub</title>
+
+    <style>
+        :root {
+            --bg: #000000;
+            --bg-card: #0D1322;
+            --border: #e2e0da;
+            --text-primary: #6c6b6b;
+            --text-secondary: #b52020;
+            --accent: #2d6a4f;
+            --accent-light: #d8f3dc;
+
+            --white: #ffffff;
+            --muted: #9699a3;
+            --dark-card: #080d18;
+            --code-bg: #050810;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--white);
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            height: 72px;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid rgba(226, 224, 218, 0.15);
+
+            display: flex;
+            align-items: center;
+        }
+
+        .header-inner {
+            width: min(1400px, 100%);
+            margin: auto;
+
+            padding: 0 28px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            color: white;
+            text-decoration: none;
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+            white-space: nowrap;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+
+            border-radius: 10px;
+
+            background: var(--accent);
+
+            display: grid;
+            place-items: center;
+
+            font-size: 18px;
+            font-weight: 900;
+
+            box-shadow: 0 0 25px rgba(45, 106, 79, 0.3);
+        }
+
+        .logo span {
+            color: var(--accent-light);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .search {
+            width: 280px;
+            height: 40px;
+
+            display: flex;
+            align-items: center;
+
+            background: var(--bg-card);
+
+            border: 1px solid rgba(226, 224, 218, 0.2);
+            border-radius: 9px;
+
+            padding: 0 13px;
+
+            transition: 0.25s ease;
+        }
+
+        .search:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.12);
+        }
+
+        .search-icon {
+            color: var(--muted);
+            margin-right: 8px;
+        }
+
+        .search input {
+            width: 100%;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            color: white;
+        }
+
+        .search input::placeholder {
+            color: #666b75;
+        }
+
+        /* =========================
+           PAGE LAYOUT
+        ========================= */
+
+        .page {
+            width: min(1400px, 100%);
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 260px minmax(0, 1fr);
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: sticky;
+            top: 72px;
+
+            height: calc(100vh - 72px);
+
+            padding: 28px 18px;
+
+            border-right: 1px solid rgba(226, 224, 218, 0.12);
+
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+
+            color: #737782;
+
+            margin-bottom: 14px;
+            padding: 0 10px;
+        }
+
+        .topic-list {
+            list-style: none;
+        }
+
+        .topic-list li {
+            margin-bottom: 4px;
+        }
+
+        .topic-link {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 9px 10px;
+
+            border: 0;
+            border-radius: 8px;
+
+            background: transparent;
+
+            color: #9b9da5;
+
+            text-align: left;
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        .topic-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .topic-link.active {
+            color: var(--accent-light);
+            background: rgba(45, 106, 79, 0.18);
+        }
+
+        .topic-number {
+            width: 22px;
+            height: 22px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 6px;
+
+            background: rgba(255, 255, 255, 0.05);
+
+            font-size: 10px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .topic-link.active .topic-number {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        main {
+            min-width: 0;
+        }
+
+        .hero {
+            padding: 75px 55px 55px;
+
+            border-bottom: 1px solid rgba(226, 224, 218, 0.1);
+
+            background:
+                radial-gradient(
+                    circle at 80% 10%,
+                    rgba(45, 106, 79, 0.13),
+                    transparent 35%
+                );
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 6px 11px;
+
+            border: 1px solid rgba(216, 243, 220, 0.2);
+            border-radius: 100px;
+
+            color: var(--accent-light);
+
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+
+            background: rgba(45, 106, 79, 0.1);
+
+            margin-bottom: 20px;
+        }
+
+        .eyebrow-dot {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+            background: #62c58b;
+
+            box-shadow: 0 0 10px #62c58b;
+        }
+
+        .hero h1 {
+            max-width: 850px;
+
+            font-size: clamp(36px, 5vw, 64px);
+            line-height: 1.04;
+
+            letter-spacing: -2.5px;
+
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: var(--accent-light);
+        }
+
+        .hero p {
+            max-width: 720px;
+
+            color: #9b9da5;
+
+            font-size: 16px;
+        }
+
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+
+            margin-top: 30px;
+        }
+
+        .stat {
+            padding: 9px 13px;
+
+            border: 1px solid rgba(226, 224, 218, 0.13);
+            border-radius: 8px;
+
+            color: #a8aab1;
+            background: rgba(255, 255, 255, 0.025);
+
+            font-size: 12px;
+        }
+
+        .stat strong {
+            color: white;
+            margin-right: 4px;
+        }
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+            padding: 50px 55px 80px;
+        }
+
+        .topic-section {
+            scroll-margin-top: 95px;
+
+            margin-bottom: 70px;
+        }
+
+        .topic-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+
+            margin-bottom: 24px;
+        }
+
+        .topic-badge {
+            width: 44px;
+            height: 44px;
+
+            flex-shrink: 0;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 11px;
+
+            background: rgba(45, 106, 79, 0.16);
+            border: 1px solid rgba(216, 243, 220, 0.12);
+
+            color: var(--accent-light);
+
+            font-weight: 800;
+        }
+
+        .topic-header h2 {
+            font-size: clamp(24px, 3vw, 34px);
+            line-height: 1.15;
+
+            letter-spacing: -1px;
+
+            margin-bottom: 5px;
+        }
+
+        .topic-label {
+            color: #676b76;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 1.3px;
+        }
+
+        .definition {
+            color: #b4b6bd;
+            font-size: 15px;
+
+            margin-bottom: 25px;
+        }
+
+        .definition strong {
+            color: white;
+        }
+
+        /* =========================
+           CONCEPT CARDS
+        ========================= */
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+
+            margin: 25px 0;
+        }
+
+        .concept-card {
+            background: var(--bg-card);
+
+            border: 1px solid rgba(226, 224, 218, 0.12);
+            border-radius: 12px;
+
+            padding: 18px;
+
+            transition: 0.25s ease;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(216, 243, 220, 0.25);
+        }
+
+        .concept-card h3 {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .concept-card p {
+            color: #858892;
+            font-size: 13px;
+        }
+
+        /* =========================
+           CODE BLOCK
+        ========================= */
+
+        .code-wrapper {
+            border: 1px solid rgba(226, 224, 218, 0.14);
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            background: var(--code-bg);
+
+            margin-top: 25px;
+        }
+
+        .code-header {
+            height: 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 13px;
+
+            background: #0b101b;
+
+            border-bottom: 1px solid rgba(226, 224, 218, 0.1);
+        }
+
+        .code-language {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            color: #747985;
+
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .code-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #62c58b;
+        }
+
+        .copy-btn {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            border: 1px solid rgba(226, 224, 218, 0.13);
+
+            background: rgba(255, 255, 255, 0.035);
+
+            color: #999ca5;
+
+            border-radius: 6px;
+
+            padding: 6px 10px;
+
+            cursor: pointer;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .copy-btn.copied {
+            color: var(--accent-light);
+            border-color: rgba(216, 243, 220, 0.3);
+        }
+
+        pre {
+            margin: 0;
+
+            padding: 22px;
+
+            overflow-x: auto;
+
+            color: #d5d8de;
+
+            font-family:
+                "SFMono-Regular",
+                Consolas,
+                "Liberation Mono",
+                monospace;
+
+            font-size: 13px;
+            line-height: 1.75;
+
+            tab-size: 2;
+        }
+
+        /* =========================
+           PROJECT CALLOUT
+        ========================= */
+
+        .project-box {
+            margin-top: 30px;
+
+            padding: 22px;
+
+            border: 1px solid rgba(216, 243, 220, 0.15);
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(45, 106, 79, 0.12),
+                    rgba(13, 19, 34, 0.7)
+                );
+        }
+
+        .project-box h3 {
+            color: var(--accent-light);
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+        }
+
+        .project-box p {
+            color: #9a9da6;
+            font-size: 13px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            border-top: 1px solid rgba(226, 224, 218, 0.1);
+
+            padding: 30px 55px;
+
+            color: #656873;
+
+            font-size: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        footer strong {
+            color: #aaa;
+        }
+
+        /* =========================
+           TABLET
+        ========================= */
+
+        @media (max-width: 1000px) {
+
+            .page {
+                grid-template-columns: 220px minmax(0, 1fr);
+            }
+
+            .hero,
+            .content {
+                padding-left: 35px;
+                padding-right: 35px;
+            }
+
+            .concept-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search {
+                width: 220px;
+            }
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 720px) {
+
+            .header {
+                height: auto;
+                min-height: 65px;
+            }
+
+            .header-inner {
+                padding: 12px 16px;
+                flex-wrap: wrap;
+            }
+
+            .header-right {
+                width: 100%;
+                order: 3;
+            }
+
+            .search {
+                width: 100%;
+            }
+
+            .page {
+                display: block;
+            }
+
+            .sidebar {
+                position: sticky;
+                top: 65px;
+
+                z-index: 50;
+
+                width: 100%;
+                height: auto;
+
+                padding: 10px 14px;
+
+                border-right: 0;
+                border-bottom: 1px solid rgba(226, 224, 218, 0.12);
+
+                background: rgba(0, 0, 0, 0.94);
+
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+
+            .sidebar-title {
+                display: none;
+            }
+
+            .topic-list {
+                display: flex;
+                gap: 6px;
+
+                width: max-content;
+            }
+
+            .topic-list li {
+                margin: 0;
+            }
+
+            .topic-link {
+                width: auto;
+
+                white-space: nowrap;
+
+                padding: 7px 9px;
+            }
+
+            .topic-link span:last-child {
+                display: none;
+            }
+
+            .topic-number {
+                width: 28px;
+                height: 28px;
+            }
+
+            .hero {
+                padding: 50px 20px 40px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1.5px;
+            }
+
+            .content {
+                padding: 40px 20px 60px;
+            }
+
+            .topic-section {
+                margin-bottom: 55px;
+            }
+
+            .topic-header h2 {
+                font-size: 25px;
+            }
+
+            .definition {
+                font-size: 14px;
+            }
+
+            pre {
+                font-size: 11.5px;
+                padding: 17px;
+            }
+
+            footer {
+                padding: 25px 20px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* =========================
+           SMALL PHONES
+           320px+
+        ========================= */
+
+        @media (min-width: 320px) and (max-width: 450px) {
+
+            .header-inner {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .logo {
+                font-size: 16px;
+            }
+
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+            .hero {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .content {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .topic-header {
+                gap: 11px;
+            }
+
+            .topic-badge {
+                width: 38px;
+                height: 38px;
+            }
+
+            .topic-header h2 {
+                font-size: 22px;
+            }
+
+            .code-header {
+                padding-left: 9px;
+                padding-right: 9px;
+            }
+
+            pre {
+                font-size: 10.5px;
+                padding: 14px;
+            }
+
+            .copy-btn {
+                padding: 5px 7px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <a href="#" class="logo">
+            <div class="logo-icon">❄</div>
+            Snowflake <span>Learning Hub</span>
+        </a>
+
+        <div class="header-right">
+
+            <div class="search">
+                <span class="search-icon">⌕</span>
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search topics..."
+                    autocomplete="off"
+                >
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<div class="page">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-title">
+            Course Topics
+        </div>
+
+        <ul class="topic-list" id="topicList">
+
+            <li>
+                <button class="topic-link active" data-target="topic-1">
+                    <span class="topic-number">01</span>
+                    <span>What is Snowflake?</span>
+                </button>
+            </li>
+
+            <li>
+                <button class="topic-link" data-target="topic-2">
+                    <span class="topic-number">02</span>
+                    <span>Warehouses</span>
+                </button>
+            </li>
+
+            <li>
+                <button class="topic-link" data-target="topic-3">
+                    <span class="topic-number">03</span>
+                    <span>Databases</span>
+                </button>
+            </li>
+
+            <li>
+                <button class="topic-link" data-target="topic-4">
+                    <span class="topic-number">04</span>
+                    <span>Schemas</span>
+                </button>
+            </li>
+
+            <li>
+                <button class="topic-link" data-target="topic-5">
+                    <span class="topic-number">05</span>
+                    <span>Tables</span>
+                </button>
+            </li>
+
+            <li>
+                <button class="topic-link" data-target="topic-6">
+                    <span class="topic-number">06</span>
+                    <span>Stages</span>
+                </button>
+            </li>
+
+            <li>
+                <button class="topic-link" data-target="topic-7">
+                    <span class="topic-number">07</span>
+                    <span>SQL Queries</span>
+                </button>
+            </li>
+
+            <li>
+                <button class="topic-link" data-target="topic-8">
+                    <span class="topic-number">08</span>
+                    <span>File Formats</span>
+                </button>
+            </li>
+
+            <li>
+                <button class="topic-link" data-target="topic-9">
+                    <span class="topic-number">09</span>
+                    <span>Data Loading</span>
+                </button>
+            </li>
+
+            <li>
+                <button class="topic-link" data-target="topic-10">
+                    <span class="topic-number">10</span>
+                    <span>Bulk Loading</span>
+                </button>
+            </li>
+
+            <li>
+                <button class="topic-link" data-target="topic-11">
+                    <span class="topic-number">11</span>
+                    <span>Snowpipe</span>
+                </button>
+            </li>
+
+            <li>
+                <button class="topic-link" data-target="topic-12">
+                    <span class="topic-number">12</span>
+                    <span>Streams</span>
+                </button>
+            </li>
+
+            <li>
+                <button class="topic-link" data-target="topic-13">
+                    <span class="topic-number">13</span>
+                    <span>Tasks</span>
+                </button>
+            </li>
+
+            <li>
+                <button class="topic-link" data-target="topic-14">
+                    <span class="topic-number">14</span>
+                    <span>Time Travel</span>
+                </button>
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                Snowflake Fundamentals
+            </div>
+
+            <h1>
+                Learn Snowflake.
+                <span>Build with confidence.</span>
+            </h1>
+
+            <p>
+                A practical reference guide to Snowflake architecture,
+                warehouses, databases, stages, data loading, Snowpipe,
+                Streams, Tasks, and Time Travel — with ready-to-use SQL.
+            </p>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <strong>14</strong> Topics
+                </div>
+
+                <div class="stat">
+                    <strong>SQL</strong> Examples
+                </div>
+
+                <div class="stat">
+                    <strong>S3</strong> Integration
+                </div>
+
+                <div class="stat">
+                    <strong>100%</strong> Responsive
+                </div>
+            </div>
+
+        </section>
+
+
+        <div class="content">
+
+
+            <!-- 01 -->
+
+            <section class="topic-section" id="topic-1">
+
+                <div class="topic-header">
+
+                    <div class="topic-badge">01</div>
+
+                    <div>
+                        <div class="topic-label">Fundamentals</div>
+                        <h2>What is Snowflake?</h2>
+                    </div>
+
+                </div>
+
+                <p class="definition">
+                    <strong>Snowflake</strong> is a cloud-based data warehouse
+                    platform designed to store and analyze large volumes of
+                    data without requiring you to manage physical hardware.
+                </p>
+
+                <div class="concept-grid">
+
+                    <div class="concept-card">
+                        <h3>Storage Layer</h3>
+                        <p>
+                            Stores your data in highly compressed,
+                            columnar format.
+                        </p>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3>Compute Layer</h3>
+                        <p>
+                            Virtual warehouses provide CPU and memory
+                            for query execution.
+                        </p>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3>Cloud Services</h3>
+                        <p>
+                            Handles authentication, metadata,
+                            optimization and security.
+                        </p>
+                    </div>
+
+                </div>
+
+                <p class="definition">
+                    The separation of storage and compute allows you to
+                    scale them independently and pay for compute based
+                    on actual usage.
+                </p>
+
+            </section>
+
+
+            <!-- 02 -->
+
+            <section class="topic-section" id="topic-2">
+
+                <div class="topic-header">
+                    <div class="topic-badge">02</div>
+
+                    <div>
+                        <div class="topic-label">Compute</div>
+                        <h2>Warehouses</h2>
+                    </div>
+                </div>
+
+                <p class="definition">
+                    A <strong>warehouse</strong> is Snowflake's compute
+                    engine. It provides CPU and memory required to execute
+                    queries and can automatically suspend when idle.
+                </p>
+
+                <div class="code-wrapper">
+
+                    <div class="code-header">
+                        <div class="code-language">
+                            <span class="code-dot"></span>
+                            SQL
+                        </div>
+
+                        <button class="copy-btn">
+                            Copy Code
+                        </button>
+                    </div>
+
+<pre><code>CREATE WAREHOUSE my_wh
+  WAREHOUSE_SIZE = 'XSMALL'
+  AUTO_SUSPEND = 60
+  AUTO_RESUME = TRUE;</code></pre>
+
+                </div>
+
+            </section>
+
+
+            <!-- 03 -->
+
+            <section class="topic-section" id="topic-3">
+
+                <div class="topic-header">
+                    <div class="topic-badge">03</div>
+
+                    <div>
+                        <div class="topic-label">Organization</div>
+                        <h2>Databases</h2>
+                    </div>
+                </div>
+
+                <p class="definition">
+                    A <strong>database</strong> is the top-level container
+                    used to organize schemas, tables, views and other
+                    database objects.
+                </p>
+
+                <div class="code-wrapper">
+
+                    <div class="code-header">
+                        <div class="code-language">
+                            <span class="code-dot"></span>
+                            SQL
+                        </div>
+
+                        <button class="copy-btn">Copy Code</button>
+                    </div>
+
+<pre><code>CREATE DATABASE sales_db;
+
+USE DATABASE sales_db;</code></pre>
+
+                </div>
+
+            </section>
+
+
+            <!-- 04 -->
+
+            <section class="topic-section" id="topic-4">
+
+                <div class="topic-header">
+                    <div class="topic-badge">04</div>
+
+                    <div>
+                        <div class="topic-label">Organization</div>
+                        <h2>Schemas</h2>
+                    </div>
+                </div>
+
+                <p class="definition">
+                    A <strong>schema</strong> sits inside a database and
+                    groups related tables, views and other objects together.
+                    Think of it like a folder inside a database.
+                </p>
+
+                <div class="code-wrapper">
+
+                    <div class="code-header">
+                        <div class="code-language">
+                            <span class="code-dot"></span>
+                            SQL
+                        </div>
+
+                        <button class="copy-btn">Copy Code</button>
+                    </div>
+
+<pre><code>CREATE SCHEMA sales_db.raw_data;</code></pre>
+
+                </div>
+
+            </section>
+
+
+            <!-- 05 -->
+
+            <section class="topic-section" id="topic-5">
+
+                <div class="topic-header">
+                    <div class="topic-badge">05</div>
+
+                    <div>
+                        <div class="topic-label">Storage</div>
+                        <h2>Tables</h2>
+                    </div>
+                </div>
+
+                <p class="definition">
+                    <strong>Tables</strong> contain the actual rows and
+                    columns of your data, similar to tables in traditional
+                    relational databases.
+                </p>
+
+                <div class="code-wrapper">
+
+                    <div class="code-header">
+                        <div class="code-language">
+                            <span class="code-dot"></span>
+                            SQL
+                        </div>
+
+                        <button class="copy-btn">Copy Code</button>
+                    </div>
+
+<pre><code>CREATE TABLE customers (
+  id INT,
+  name STRING,
+  email STRING,
+  signup_date DATE
+);</code></pre>
+
+                </div>
+
+            </section>
+
+
+            <!-- 06 -->
+
+            <section class="topic-section" id="topic-6">
+
+                <div class="topic-header">
+                    <div class="topic-badge">06</div>
+
+                    <div>
+                        <div class="topic-label">Data Integration</div>
+                        <h2>Stages</h2>
+                    </div>
+                </div>
+
+                <p class="definition">
+                    A <strong>stage</strong> is a storage location where
+                    files are kept before or after loading them into
+                    Snowflake. Stages can be internal or external.
+                </p>
+
+                <div class="code-wrapper">
+
+                    <div class="code-header">
+                        <div class="code-language">
+                            <span class="code-dot"></span>
+                            SQL
+                        </div>
+
+                        <button class="copy-btn">Copy Code</button>
+                    </div>
+
+<pre><code>CREATE STAGE ext_stage
+  URL = 's3://my-bucket/data/'
+  CREDENTIALS = (
+    AWS_KEY_ID='***'
+    AWS_SECRET_KEY='***'
+  );</code></pre>
+
+                </div>
+
+                <div class="project-box">
+
+                    <h3>Why this matters for your S3 project</h3>
+
+                    <p>
+                        An external stage creates the bridge between your
+                        Amazon S3 files and Snowflake, allowing Snowflake
+                        to read data stored in your S3 bucket.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- 07 -->
+
+            <section class="topic-section" id="topic-7">
+
+                <div class="topic-header">
+                    <div class="topic-badge">07</div>
+
+                    <div>
+                        <div class="topic-label">SQL</div>
+                        <h2>SQL Queries</h2>
+                    </div>
+                </div>
+
+                <p class="definition">
+                    Snowflake supports standard <strong>ANSI SQL</strong>.
+                    Common commands such as SELECT, JOIN, GROUP BY,
+                    WHERE and ORDER BY work as expected.
+                </p>
+
+                <div class="code-wrapper">
+
+                    <div class="code-header">
+                        <div class="code-language">
+                            <span class="code-dot"></span>
+                            SQL
+                        </div>
+
+                        <button class="copy-btn">Copy Code</button>
+                    </div>
+
+<pre><code>SELECT
+    customer_id,
+    SUM(amount) AS total_sales
+FROM sales
+GROUP BY customer_id
+ORDER BY total_sales DESC;</code></pre>
+
+                </div>
+
+            </section>
+
+
+            <!-- 08 -->
+
+            <section class="topic-section" id="topic-8">
+
+                <div class="topic-header">
+                    <div class="topic-badge">08</div>
+
+                    <div>
+                        <div class="topic-label">Data Loading</div>
+                        <h2>File Formats</h2>
+                    </div>
+                </div>
+
+                <p class="definition">
+                    A <strong>file format</strong> tells Snowflake how
+                    incoming files should be interpreted. It can define
+                    delimiters, headers and other file properties.
+                </p>
+
+                <div class="code-wrapper">
+
+                    <div class="code-header">
+                        <div class="code-language">
+                            <span class="code-dot"></span>
+                            SQL
+                        </div>
+
+                        <button class="copy-btn">Copy Code</button>
+                    </div>
+
+<pre><code>CREATE FILE FORMAT csv_fmt
+  TYPE = 'CSV'
+  FIELD_DELIMITER = ','
+  SKIP_HEADER = 1;</code></pre>
+
+                </div>
+
+            </section>
+
+
+            <!-- 09 -->
+
+            <section class="topic-section" id="topic-9">
+
+                <div class="topic-header">
+                    <div class="topic-badge">09</div>
+
+                    <div>
+                        <div class="topic-label">Data Engineering</div>
+                        <h2>Data Loading Approaches</h2>
+                    </div>
+                </div>
+
+                <p class="definition">
+                    Snowflake provides different approaches for loading
+                    data. Two important approaches are
+                    <strong>Bulk Loading</strong> and
+                    <strong>Snowpipe continuous loading</strong>.
+                </p>
+
+                <div class="concept-grid">
+
+                    <div class="concept-card">
+                        <h3>Bulk Loading</h3>
+                        <p>
+                            Best for historical batches and periodic
+                            data exports.
+                        </p>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3>Snowpipe</h3>
+                        <p>
+                            Best for automatically loading new files
+                            as they arrive.
+                        </p>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3>Commands</h3>
+                        <p>
+                            COPY INTO for bulk loading and
+                            CREATE PIPE for Snowpipe.
+                        </p>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- 10 -->
+
+            <section class="topic-section" id="topic-10">
+
+                <div class="topic-header">
+                    <div class="topic-badge">10</div>
+
+                    <div>
+                        <div class="topic-label">Bulk Loading</div>
+                        <h2>Bulk Data Loading</h2>
+                    </div>
+                </div>
+
+                <p class="definition">
+                    <strong>COPY INTO</strong> loads a batch of files
+                    from a stage into a Snowflake table.
+                </p>
+
+                <div class="code-wrapper">
+
+                    <div class="code-header">
+                        <div class="code-language">
+                            <span class="code-dot"></span>
+                            SQL
+                        </div>
+
+                        <button class="copy-btn">Copy Code</button>
+                    </div>
+
+<pre><code>COPY INTO customers
+FROM @my_stage
+FILE_FORMAT = (FORMAT_NAME = csv_fmt)
+ON_ERROR = 'CONTINUE';</code></pre>
+
+                </div>
+
+            </section>
+
+
+            <!-- 11 -->
+
+            <section class="topic-section" id="topic-11">
+
+                <div class="topic-header">
+                    <div class="topic-badge">11</div>
+
+                    <div>
+                        <div class="topic-label">Continuous Loading</div>
+                        <h2>Snowpipe</h2>
+                    </div>
+                </div>
+
+                <p class="definition">
+                    <strong>Snowpipe</strong> automatically loads new files
+                    into Snowflake when they arrive in cloud storage,
+                    making it useful for continuous data ingestion.
+                </p>
+
+                <div class="code-wrapper">
+
+                    <div class="code-header">
+                        <div class="code-language">
+                            <span class="code-dot"></span>
+                            SQL
+                        </div>
+
+                        <button class="copy-btn">Copy Code</button>
+                    </div>
+
+<pre><code>CREATE PIPE my_pipe
+  AUTO_INGEST = TRUE
+AS
+COPY INTO customers
+FROM @my_stage
+FILE_FORMAT = (FORMAT_NAME = csv_fmt);</code></pre>
+
+                </div>
+
+                <div class="project-box">
+
+                    <h3>S3 → Snowflake</h3>
+
+                    <p>
+                        Snowpipe is the key component for automatically
+                        ingesting new files from your S3 bucket into
+                        Snowflake.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- 12 -->
+
+            <section class="topic-section" id="topic-12">
+
+                <div class="topic-header">
+                    <div class="topic-badge">12</div>
+
+                    <div>
+                        <div class="topic-label">Change Data</div>
+                        <h2>Streams</h2>
+                    </div>
+                </div>
+
+                <p class="definition">
+                    A <strong>Stream</strong> tracks row-level changes
+                    such as inserts, updates and deletes made to a table,
+                    allowing incremental processing.
+                </p>
+
+                <div class="code-wrapper">
+
+                    <div class="code-header">
+                        <div class="code-language">
+                            <span class="code-dot"></span>
+                            SQL
+                        </div>
+
+                        <button class="copy-btn">Copy Code</button>
+                    </div>
+
+<pre><code>CREATE STREAM orders_stream
+ON TABLE orders;</code></pre>
+
+                </div>
+
+            </section>
+
+
+            <!-- 13 -->
+
+            <section class="topic-section" id="topic-13">
+
+                <div class="topic-header">
+                    <div class="topic-badge">13</div>
+
+                    <div>
+                        <div class="topic-label">Automation</div>
+                        <h2>Tasks</h2>
+                    </div>
+                </div>
+
+                <p class="definition">
+                    A <strong>Task</strong> automatically executes SQL
+                    statements on a schedule. Tasks are often combined
+                    with Streams to automate transformations.
+                </p>
+
+                <div class="code-wrapper">
+
+                    <div class="code-header">
+                        <div class="code-language">
+                            <span class="code-dot"></span>
+                            SQL
+                        </div>
+
+                        <button class="copy-btn">Copy Code</button>
+                    </div>
+
+<pre><code>CREATE TASK my_task
+  WAREHOUSE = my_wh
+  SCHEDULE = '5 MINUTE'
+AS
+INSERT INTO summary
+SELECT * FROM orders_stream;</code></pre>
+
+                </div>
+
+            </section>
+
+
+            <!-- 14 -->
+
+            <section class="topic-section" id="topic-14">
+
+                <div class="topic-header">
+                    <div class="topic-badge">14</div>
+
+                    <div>
+                        <div class="topic-label">Data Recovery</div>
+                        <h2>Time Travel</h2>
+                    </div>
+                </div>
+
+                <p class="definition">
+                    <strong>Time Travel</strong> allows you to query,
+                    restore or recover historical versions of data within
+                    Snowflake's configured retention period.
+                </p>
+
+                <div class="code-wrapper">
+
+                    <div class="code-header">
+                        <div class="code-language">
+                            <span class="code-dot"></span>
+                            SQL
+                        </div>
+
+                        <button class="copy-btn">Copy Code</button>
+                    </div>
+
+<pre><code>SELECT *
+FROM orders
+AT (OFFSET => -3600);
+
+UNDROP TABLE orders;</code></pre>
+
+                </div>
+
+            </section>
+
+
+            <!-- PROJECT -->
+
+            <section class="topic-section">
+
+                <div class="topic-header">
+
+                    <div class="topic-badge">🚀</div>
+
+                    <div>
+                        <div class="topic-label">Hands-on Project</div>
+                        <h2>S3 + Snowflake Pipeline</h2>
+                    </div>
+
+                </div>
+
+                <p class="definition">
+                    Now combine everything you've learned into a real
+                    data engineering pipeline.
+                </p>
+
+                <div class="concept-grid">
+
+                    <div class="concept-card">
+                        <h3>01 · S3</h3>
+                        <p>
+                            Store incoming CSV, JSON or Parquet files
+                            inside Amazon S3.
+                        </p>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3>02 · Stage</h3>
+                        <p>
+                            Create an external Snowflake stage that
+                            points to S3.
+                        </p>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3>03 · Snowpipe</h3>
+                        <p>
+                            Automatically ingest newly arriving files.
+                        </p>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3>04 · Streams</h3>
+                        <p>
+                            Track changes and process only new data.
+                        </p>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3>05 · Tasks</h3>
+                        <p>
+                            Automate downstream transformations.
+                        </p>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3>06 · Time Travel</h3>
+                        <p>
+                            Recover or inspect historical data when
+                            needed.
+                        </p>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+
+        <footer>
+
+            <div>
+                Snowflake Learning Hub · Built for learning & practice
+            </div>
+
+            <div>
+                <strong>14 Topics</strong> · SQL · S3 · Snowpipe
+            </div>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    /* =========================
+       COPY CODE
+    ========================= */
+
+    const copyButtons = document.querySelectorAll(".copy-btn");
+
+    copyButtons.forEach(button => {
+
+        button.addEventListener("click", async () => {
+
+            const codeBlock =
+                button.closest(".code-wrapper")
+                .querySelector("code");
+
+            const code = codeBlock.innerText;
+
+            try {
+
+                await navigator.clipboard.writeText(code);
+
+                const originalText = button.innerText;
+
+                button.innerText = "✓ Copied";
+                button.classList.add("copied");
+
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.classList.remove("copied");
+                }, 1600);
+
+            } catch (error) {
+
+                button.innerText = "Copy failed";
+
+                setTimeout(() => {
+                    button.innerText = "Copy Code";
+                }, 1600);
+
+            }
+
+        });
+
+    });
+
+
+    /* =========================
+       TOPIC NAVIGATION
+    ========================= */
+
+    const topicLinks =
+        document.querySelectorAll(".topic-link");
+
+    topicLinks.forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            const target =
+                document.getElementById(
+                    link.dataset.target
+                );
+
+            if (!target) return;
+
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+            topicLinks.forEach(item =>
+                item.classList.remove("active")
+            );
+
+            link.classList.add("active");
+
+        });
+
+    });
+
+
+    /* =========================
+       SEARCH
+    ========================= */
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const sections =
+        document.querySelectorAll(".topic-section");
+
+    searchInput.addEventListener("input", () => {
+
+        const query =
+            searchInput.value
+            .toLowerCase()
+            .trim();
+
+        sections.forEach(section => {
+
+            const text =
+                section.innerText.toLowerCase();
+
+            if (!query || text.includes(query)) {
+                section.style.display = "";
+            } else {
+                section.style.display = "none";
+            }
+
+        });
+
+    });
+
+
+    /* =========================
+       ACTIVE TOPIC ON SCROLL
+    ========================= */
+
+    const observer =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (!entry.isIntersecting)
+                        return;
+
+                    const id = entry.target.id;
+
+                    topicLinks.forEach(link => {
+
+                        link.classList.toggle(
+                            "active",
+                            link.dataset.target === id
+                        );
+
+                    });
+
+                });
+
+            },
+            {
+                rootMargin: "-20% 0px -65% 0px"
+            }
+        );
+
+    sections.forEach(section =>
+        observer.observe(section)
+    );
+
+</script>
+
+</body>
+</html>
